@@ -1,0 +1,84 @@
+#!/bin/bash
+
+#ENTITY=”/usr/local/share/snmp/mibs/ENTITY-MIB.txt”
+
+ip='172.20.1.126';
+snmp_com='snmain';
+
+snmpwalk -v2c -c snmain -Oqv $ip SNMPv2-MIB::sysName
+echo "-------------------------------------------------------------------------------"
+
+snmpwalk -v2c -c snmain -Oqv $ip SNMPv2-MIB::sysDescr.0 | grep -i ios
+echo "-------------------------------------------------------------------------------"
+
+snmpwalk -v2c -c snmain -Oqv $ip ENTITY-MIB::entPhysicalModelName
+echo "-------------------------------------------------------------------------------"
+
+snmpwalk -v2c -c snmain -Oqv $ip ENTITY-MIB::entPhysicalSerialNum
+echo "-------------------------------------------------------------------------------"
+
+#snmpwalk -v2c -c snmain -Oqv $ip ENTITY-MIB::entPhysicalDescr
+#echo "-------------------------------------------------------------------------------"
+
+
+snmp_hostname_oid='.1.3.6.1.2.1.1.5.0';
+snmp_system_oid='.1.3.6.1.2.1.1.1.0';
+snmp_uptime_oid='.1.3.6.1.2.1.1.3.0';
+snmp_location_oid='.1.3.6.1.2.1.1.6.0';
+snmp_contact_oid='.1.3.6.1.2.1.1.4.0';
+
+ifIndex_oid='.1.3.6.1.2.1.2.2.1.1';
+ifTypes_oid='.1.3.6.1.2.1.2.2.1.3';
+ifAliases_oid='.1.3.6.1.2.1.31.1.1.1.18';
+ifSpeed_oid='.1.3.6.1.2.1.2.2.1.5';
+ifHighSpeed_oid='.1.3.6.1.2.1.31.1.1.1.15';
+ifDuplex_oid='.1.3.6.1.2.1.10.7.2.1.19';
+ifDescr_oid='.1.3.6.1.2.1.2.2.1.2';
+ifMtu_oid='.1.3.6.1.2.1.2.2.1.4';
+ifPhysAddress_oid='.1.3.6.1.2.1.2.2.1.6';
+ifAdminStatus_oid='.1.3.6.1.2.1.2.2.1.7';
+
+ifIpaddress_oid='.1.3.6.1.2.1.4.20.1.1';
+ifNetmask_oid='.1.3.6.1.2.1.4.20.1.3';
+
+
+
+
+FdbPort_oid='1.3.6.1.2.1.17.4.3.1.2';
+FdbAddress_oid='1.3.6.1.2.1.17.4.3.1.1';
+ifname_oid='1.3.6.1.2.1.31.1.1.1.1';
+PortIfIndex_oid='1.3.6.1.2.1.17.1.4.1.2';
+trunkport_oid='1.3.6.1.4.1.9.9.46.1.6.1.1.14';
+vlan_oid='1.3.6.1.4.1.9.9.68.1.2.2.1.2';
+vlan_name_oid='1.3.6.1.4.1.9.9.46.1.3.1.1.4';
+
+
+echo "ifIndex_oid-------------------------------------------------------------------------------"
+snmpwalk -v2c -c snmain -Oqv $ip $ifIndex_oid > fdbport.txt
+echo "ifTypes_oid-------------------------------------------------------------------------------"
+snmpwalk -v2c -c snmain -Oqv $ip $ifTypes_oid >> fdbport.txt
+
+echo "ifAliases_oid-------------------------------------------------------------------------------"
+snmpwalk -v2c -c snmain -Oqv $ip $ifAliases_oid >> fdbport.txt
+echo "ifSpeed_oid-------------------------------------------------------------------------------"
+snmpwalk -v2c -c snmain -Oqv $ip $ifSpeed_oid >> fdbport.txt
+echo "ifHighSpeed_oid-------------------------------------------------------------------------------"
+snmpwalk -v2c -c snmain -Oqv $ip $ifHighSpeed_oid >> fdbport.txt
+echo "ifDuplex_oid-------------------------------------------------------------------------------"
+snmpwalk -v2c -c snmain -Oqv $ip $ifDuplex_oid >> fdbport.txt
+echo "ifDescr_oid-------------------------------------------------------------------------------"
+snmpwalk -v2c -c snmain -Oqv $ip $ifDescr_oid >> fdbport.txt
+echo "ifMtu_oid-------------------------------------------------------------------------------"
+snmpwalk -v2c -c snmain -Oqv $ip $ifMtu_oid >> fdbport.txt
+echo "ifPhysAddress_oid-------------------------------------------------------------------------------"
+snmpwalk -v2c -c snmain -Oqv $ip $ifPhysAddress_oid >> fdbport.txt
+echo "ifAdminStatus_oid-------------------------------------------------------------------------------"
+snmpwalk -v2c -c snmain -Oqv $ip $ifAdminStatus_oid >> fdbport.txt
+
+echo "-------------------------------------------------------------------------------"
+
+
+#snmpwalk('172.20.1.74','snmain','1.3.6.1.2.1.31.1.1.1.1.0')
+#snmpwalk -v2c -c snmain 172.20.1.74 1.3.6.1.2.1.31.1.1.1.1.0
+
+#snmpwalk -v2c -c snmain -O $ip 1.3.6.1.2
